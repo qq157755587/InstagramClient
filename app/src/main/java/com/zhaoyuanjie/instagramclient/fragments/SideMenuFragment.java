@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import com.zhaoyuanjie.instagramclient.R;
 
 /**
+ *
  * Created by zhaoyuanjie on 15/3/12.
  */
 public class SideMenuFragment extends Fragment {

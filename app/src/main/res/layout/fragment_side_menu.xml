@@ -9,5 +9,5 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/holo_red_light"/>
+        android:background="@color/Primary_Light_Blue_900"/>
 </com.zhaoyuanjie.instagramclient.views.ScrimInsetsLinearLayout>
