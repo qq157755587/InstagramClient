@@ -6,11 +6,14 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.volley.Response;
 import com.zhaoyuanjie.instagramclient.R;
+import com.zhaoyuanjie.instagramclient.network.InstagramRestful;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -38,6 +41,11 @@ public class MediaListFragment extends Fragment implements SwipeRefreshLayout.On
 
     @Override
     public void onRefresh() {
-
+        InstagramRestful.mediaPopular(new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.e("popular", response);
+            }
+        });
     }
 }
