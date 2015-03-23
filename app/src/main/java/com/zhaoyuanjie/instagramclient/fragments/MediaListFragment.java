@@ -10,9 +10,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.zhaoyuanjie.instagramclient.R;
+import com.zhaoyuanjie.instagramclient.models.Media;
+import com.zhaoyuanjie.instagramclient.models.Popular;
 import com.zhaoyuanjie.instagramclient.network.InstagramRestful;
 
 import butterknife.ButterKnife;
@@ -40,11 +43,23 @@ public class MediaListFragment extends Fragment implements SwipeRefreshLayout.On
     }
 
     @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        mSwipeRefreshLayout.setRefreshing(true);
+        loadData();
+    }
+
+    @Override
     public void onRefresh() {
-        InstagramRestful.mediaPopular(new Response.Listener<String>() {
+        loadData();
+    }
+
+    private void loadData() {
+        InstagramRestful.mediaPopular(new Response.Listener<Popular>() {
             @Override
-            public void onResponse(String response) {
-                Log.e("popular", response);
+            public void onResponse(Popular popular) {
+                // todo
+                mSwipeRefreshLayout.setRefreshing(false);
+                Toast.makeText(getActivity(), popular.data[0].link, Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -1,7 +1,11 @@
 package com.zhaoyuanjie.instagramclient.network;
 
+import android.util.Log;
+
 import com.android.volley.Response;
-import com.android.volley.toolbox.StringRequest;
+import com.android.volley.VolleyError;
+import com.zhaoyuanjie.instagramclient.models.Media;
+import com.zhaoyuanjie.instagramclient.models.Popular;
 
 /**
  *
@@ -9,14 +13,21 @@ import com.android.volley.toolbox.StringRequest;
  */
 public class InstagramRestful {
 
-    private static final String HOST = "https://api.instagram.com/v1";
+    private static final String END_POINT = "https://api.instagram.com/v1";
     private static final String CLIENT_ID = "?client_id=c247327361234e128688cfcf5a3d5533";
 
     private static final String MEDIA_POPULAR = "/media/popular";
 
-    public static void mediaPopular(Response.Listener<String> listener) {
-        StringRequest request = new StringRequest(HOST + MEDIA_POPULAR + suffix(),
-                listener, null);
+    private static Response.ErrorListener sErrorListener = new Response.ErrorListener() {
+        @Override
+        public void onErrorResponse(VolleyError error) {
+            Log.e("network error", error.getMessage());
+        }
+    };
+
+    public static void mediaPopular(Response.Listener<Popular> listener) {
+        String url = END_POINT + MEDIA_POPULAR + suffix();
+        GsonRequest request = new GsonRequest(url, Popular.class, null, listener, sErrorListener);
         VolleySingleton.getInstance().addToRequestQueue(request);
     }
 

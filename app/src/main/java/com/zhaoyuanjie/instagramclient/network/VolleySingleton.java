@@ -5,6 +5,7 @@ import android.content.Context;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.squareup.okhttp.OkHttpClient;
 
 /**
  *
@@ -37,7 +38,7 @@ public class VolleySingleton {
         if (mRequestQueue == null) {
             // getApplicationContext() is key, it keeps you from leaking the
             // Activity or BroadcastReceiver if someone passes one in.
-            mRequestQueue = Volley.newRequestQueue(mCtx.getApplicationContext());
+            mRequestQueue = Volley.newRequestQueue(mCtx.getApplicationContext(), new OkHttpStack(new OkHttpClient()));
         }
         return mRequestQueue;
     }

@@ -32,6 +32,5 @@ public class MainActivity extends ActionBarActivity {
 
         MediaListFragment mediaListFragment = new MediaListFragment();
         getFragmentManager().beginTransaction().replace(R.id.fragment_main, mediaListFragment).commit();
-        mediaListFragment.onRefresh();
     }
 }
