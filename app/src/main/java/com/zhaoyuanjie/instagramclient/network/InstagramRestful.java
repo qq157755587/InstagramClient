@@ -20,7 +20,7 @@ public class InstagramRestful {
     private static Response.ErrorListener sErrorListener = new Response.ErrorListener() {
         @Override
         public void onErrorResponse(VolleyError error) {
-            Log.e("network error", error.getMessage());
+            Log.e("network error", error.getMessage() + "");
         }
     };
 

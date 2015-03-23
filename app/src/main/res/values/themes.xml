@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Base application theme. -->
-    <style name="BaseTheme" parent="Theme.AppCompat.Light">
+    <style name="BaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/Primary_Blue_Grey_500</item>
         <item name="colorPrimaryDark">@color/Primary_Blue_Grey_800</item>
         <item name="colorAccent">@color/Primary_Blue_Grey_300</item>
