@@ -12,33 +12,35 @@ import com.squareup.okhttp.OkHttpClient;
  * Created by zhaoyuanjie on 15/3/20.
  */
 public class VolleySingleton {
-    private static VolleySingleton mInstance;
+    private static VolleySingleton sInstance;
     private RequestQueue mRequestQueue;
-    private static Context mCtx;
+    private Context mCtx;
+    private OkHttpClient mOkHttpClient;
 
-    private VolleySingleton(Context context) {
+    private VolleySingleton(Context context, OkHttpClient okHttpClient) {
         mCtx = context;
+        mOkHttpClient = okHttpClient;
         mRequestQueue = getRequestQueue();
     }
 
-    public static void initial(Context context) {
-        if (mInstance == null) {
-            mInstance = new VolleySingleton(context);
+    public static void initial(Context context, OkHttpClient okHttpClient) {
+        if (sInstance == null) {
+            sInstance = new VolleySingleton(context, okHttpClient);
         }
     }
 
     public static VolleySingleton getInstance() {
-        if (mInstance == null) {
+        if (sInstance == null) {
             throw new NullPointerException("VolleySingleton didn't initial!");
         }
-        return mInstance;
+        return sInstance;
     }
 
     public RequestQueue getRequestQueue() {
         if (mRequestQueue == null) {
             // getApplicationContext() is key, it keeps you from leaking the
             // Activity or BroadcastReceiver if someone passes one in.
-            mRequestQueue = Volley.newRequestQueue(mCtx.getApplicationContext(), new OkHttpStack(new OkHttpClient()));
+            mRequestQueue = Volley.newRequestQueue(mCtx.getApplicationContext(), new OkHttpStack(mOkHttpClient));
         }
         return mRequestQueue;
     }

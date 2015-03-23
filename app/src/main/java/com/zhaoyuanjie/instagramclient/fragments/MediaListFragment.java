@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.zhaoyuanjie.instagramclient.R;
+import com.zhaoyuanjie.instagramclient.adapters.PopularMediasAdapter;
 import com.zhaoyuanjie.instagramclient.models.Media;
 import com.zhaoyuanjie.instagramclient.models.Popular;
 import com.zhaoyuanjie.instagramclient.network.InstagramRestful;
@@ -26,10 +27,10 @@ import butterknife.InjectView;
  * Created by zhaoyuanjie on 15-3-15.
  */
 public class MediaListFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
-    @InjectView(R.id.swipe_refresh_layout)
-    SwipeRefreshLayout mSwipeRefreshLayout;
-    @InjectView(R.id.recycler_view)
-    RecyclerView mRecyclerView;
+    @InjectView(R.id.swipe_refresh_layout) SwipeRefreshLayout mSwipeRefreshLayout;
+    @InjectView(R.id.recycler_view) RecyclerView mRecyclerView;
+
+    private PopularMediasAdapter mAdapter;
 
     @Nullable
     @Override
@@ -37,7 +38,9 @@ public class MediaListFragment extends Fragment implements SwipeRefreshLayout.On
         View view = inflater.inflate(R.layout.fragment_media_list, container, false);
         ButterKnife.inject(this, view);
 
+        mAdapter = new PopularMediasAdapter();
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerView.setAdapter(mAdapter);
         mSwipeRefreshLayout.setOnRefreshListener(this);
         return view;
     }
@@ -49,6 +52,12 @@ public class MediaListFragment extends Fragment implements SwipeRefreshLayout.On
     }
 
     @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.reset(this);
+    }
+
+    @Override
     public void onRefresh() {
         loadData();
     }
@@ -57,9 +66,9 @@ public class MediaListFragment extends Fragment implements SwipeRefreshLayout.On
         InstagramRestful.mediaPopular(new Response.Listener<Popular>() {
             @Override
             public void onResponse(Popular popular) {
-                // todo
                 mSwipeRefreshLayout.setRefreshing(false);
-                Toast.makeText(getActivity(), popular.data[0].link, Toast.LENGTH_SHORT).show();
+                mAdapter.setMedias(popular.data);
+                mAdapter.notifyDataSetChanged();
             }
         });
     }

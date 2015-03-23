@@ -10,4 +10,5 @@ public class Media {
     public String link;
     public User user;
     public String[] tags;
+    public Caption caption;
 }
