@@ -6,16 +6,13 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.zhaoyuanjie.instagramclient.R;
 import com.zhaoyuanjie.instagramclient.adapters.PopularMediasAdapter;
-import com.zhaoyuanjie.instagramclient.models.Media;
 import com.zhaoyuanjie.instagramclient.models.Popular;
 import com.zhaoyuanjie.instagramclient.network.InstagramRestful;
 

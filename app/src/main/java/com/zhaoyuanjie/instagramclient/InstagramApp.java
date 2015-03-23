@@ -11,15 +11,14 @@ import com.zhaoyuanjie.instagramclient.network.VolleySingleton;
  * Created by zhaoyuanjie on 15-3-15.
  */
 public class InstagramApp extends Application {
-    private OkHttpClient mOkHttpClient;
 
     @Override
     public void onCreate() {
         super.onCreate();
 
-        mOkHttpClient = new OkHttpClient();
-        VolleySingleton.initial(this, mOkHttpClient);
-        Picasso picasso = new Picasso.Builder(this).downloader(new OkHttpDownloader(mOkHttpClient)).build();
+        OkHttpClient okHttpClient = new OkHttpClient();
+        VolleySingleton.initial(this, okHttpClient);
+        Picasso picasso = new Picasso.Builder(this).downloader(new OkHttpDownloader(okHttpClient)).build();
         Picasso.setSingletonInstance(picasso);
     }
 }

@@ -4,7 +4,6 @@ import android.util.Log;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.zhaoyuanjie.instagramclient.models.Media;
 import com.zhaoyuanjie.instagramclient.models.Popular;
 
 /**
@@ -27,7 +26,7 @@ public class InstagramRestful {
 
     public static void mediaPopular(Response.Listener<Popular> listener) {
         String url = END_POINT + MEDIA_POPULAR + suffix();
-        GsonRequest request = new GsonRequest(url, Popular.class, null, listener, sErrorListener);
+        GsonRequest<Popular> request = new GsonRequest<>(url, Popular.class, null, listener, sErrorListener);
         VolleySingleton.getInstance().addToRequestQueue(request);
     }
 
