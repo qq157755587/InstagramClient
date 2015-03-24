@@ -38,7 +38,6 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initViews() {
-        mDrawerLayout.setStatusBarBackgroundColor(getResources().getColor(R.color.Primary_Blue_Grey_800));
         mToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         mDrawerLayout.setDrawerListener(mToggle);
