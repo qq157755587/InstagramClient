@@ -18,9 +18,8 @@ import butterknife.InjectView;
  *
  * Created by zhaoyuanjie on 15/3/12.
  */
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends BaseActivity {
     @InjectView(R.id.drawer_layout) DrawerLayout mDrawerLayout;
-    @InjectView(R.id.toolbar) Toolbar mToolbar;
 
     private SideMenuFragment mSideMenuFragment;
     private ActionBarDrawerToggle mToggle;
@@ -28,18 +27,17 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
         initViews();
         setupListener();
         addMediaListFragment();
     }
 
+    @Override
+    protected int getContentViewLayoutId() {
+        return R.layout.activity_main;
+    }
+
     private void initViews() {
-        ButterKnife.inject(this);
-
-        setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         mDrawerLayout.setStatusBarBackgroundColor(getResources().getColor(R.color.Primary_Blue_Grey_800));
         mToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);

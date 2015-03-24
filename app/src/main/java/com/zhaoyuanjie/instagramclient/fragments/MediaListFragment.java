@@ -35,7 +35,7 @@ public class MediaListFragment extends Fragment implements SwipeRefreshLayout.On
         View view = inflater.inflate(R.layout.fragment_media_list, container, false);
         ButterKnife.inject(this, view);
 
-        mAdapter = new PopularMediasAdapter();
+        mAdapter = new PopularMediasAdapter(getActivity());
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setAdapter(mAdapter);
         mSwipeRefreshLayout.setOnRefreshListener(this);
