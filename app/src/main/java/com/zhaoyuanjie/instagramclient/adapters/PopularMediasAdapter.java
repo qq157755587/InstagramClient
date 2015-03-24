@@ -31,7 +31,9 @@ public class PopularMediasAdapter extends RecyclerView.Adapter<RecyclerView.View
         MediaViewHolder vh = (MediaViewHolder) holder;
         Media media = mMedias[position];
         Picasso.with(null).load(media.images.standard_resolution.url).into(vh.image);
-        vh.caption.setText(media.caption.text);
+        if (media.caption != null) {
+            vh.caption.setText(media.caption.text);
+        }
     }
 
     @Override
