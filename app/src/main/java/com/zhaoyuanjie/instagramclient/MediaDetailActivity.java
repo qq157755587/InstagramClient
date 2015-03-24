@@ -1,6 +1,7 @@
 package com.zhaoyuanjie.instagramclient;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
@@ -17,6 +18,7 @@ public class MediaDetailActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initViews();
+        setupListener();
     }
 
     @Override
@@ -27,5 +29,14 @@ public class MediaDetailActivity extends BaseActivity {
     private void initViews() {
         String url = getIntent().getStringExtra("url");
         Picasso.with(this).load(url).into(mImage);
+    }
+
+    private void setupListener() {
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 }

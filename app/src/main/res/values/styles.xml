@@ -1,5 +1,8 @@
 <resources>
 
-
+    <style name="BaseActionBar" parent="ThemeOverlay.AppCompat.ActionBar">
+        <item name="colorControlNormal">@color/Primary_White</item>
+        <item name="android:textColorPrimary">@color/Primary_White</item>
+    </style>
 
 </resources>
