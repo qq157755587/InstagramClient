@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import com.android.volley.Response;
 import com.zhaoyuanjie.instagramclient.R;
 import com.zhaoyuanjie.instagramclient.adapters.PopularMediasAdapter;
-import com.zhaoyuanjie.instagramclient.models.Popular;
+import com.zhaoyuanjie.instagramclient.models.MediaList;
 import com.zhaoyuanjie.instagramclient.network.InstagramRestful;
 
 import butterknife.ButterKnife;
@@ -60,13 +60,19 @@ public class MediaListFragment extends Fragment implements SwipeRefreshLayout.On
     }
 
     private void loadData() {
-        InstagramRestful.mediaPopular(new Response.Listener<Popular>() {
-            @Override
-            public void onResponse(Popular popular) {
-                mSwipeRefreshLayout.setRefreshing(false);
-                mAdapter.setMedias(popular.data);
-                mAdapter.notifyDataSetChanged();
-            }
-        });
+        if (InstagramRestful.isAuthenticated()) {
+            InstagramRestful.feed(mMediaListListener);
+        } else {
+            InstagramRestful.mediaPopular(mMediaListListener);
+        }
     }
+
+    private Response.Listener<MediaList> mMediaListListener = new Response.Listener<MediaList>() {
+        @Override
+        public void onResponse(MediaList mediaList) {
+            mSwipeRefreshLayout.setRefreshing(false);
+            mAdapter.setMedias(mediaList.data);
+            mAdapter.notifyDataSetChanged();
+        }
+    };
 }

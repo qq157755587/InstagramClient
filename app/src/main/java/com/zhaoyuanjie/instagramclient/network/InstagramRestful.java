@@ -4,7 +4,7 @@ import android.util.Log;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.zhaoyuanjie.instagramclient.models.Popular;
+import com.zhaoyuanjie.instagramclient.models.MediaList;
 
 /**
  *
@@ -18,6 +18,7 @@ public class InstagramRestful {
     private static String sToken;
 
     private static final String MEDIA_POPULAR = "/media/popular";
+    private static final String FEED = "/users/self/feed";
 
     private static Response.ErrorListener sErrorListener = new Response.ErrorListener() {
         @Override
@@ -26,9 +27,15 @@ public class InstagramRestful {
         }
     };
 
-    public static void mediaPopular(Response.Listener<Popular> listener) {
+    public static void mediaPopular(Response.Listener<MediaList> listener) {
         String url = END_POINT + MEDIA_POPULAR + suffix();
-        GsonRequest<Popular> request = new GsonRequest<>(url, Popular.class, null, listener, sErrorListener);
+        GsonRequest<MediaList> request = new GsonRequest<>(url, MediaList.class, null, listener, sErrorListener);
+        VolleySingleton.getInstance().addToRequestQueue(request);
+    }
+
+    public static void feed(Response.Listener<MediaList> listener) {
+        String url = END_POINT + FEED + suffix();
+        GsonRequest<MediaList> request = new GsonRequest<>(url, MediaList.class, null, listener, sErrorListener);
         VolleySingleton.getInstance().addToRequestQueue(request);
     }
 
