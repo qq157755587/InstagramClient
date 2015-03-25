@@ -1,6 +1,8 @@
 package com.zhaoyuanjie.instagramclient.fragments;
 
+import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -8,9 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.zhaoyuanjie.instagramclient.LoginActivity;
+import com.zhaoyuanjie.instagramclient.MainActivity;
 import com.zhaoyuanjie.instagramclient.R;
+import com.zhaoyuanjie.instagramclient.network.InstagramRestful;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -21,6 +25,8 @@ import butterknife.OnClick;
  * Created by zhaoyuanjie on 15/3/12.
  */
 public class SideMenuFragment extends Fragment {
+    private static final int REQUEST_CODE_LOGIN = 10;
+
     @InjectView(R.id.account) View mAccount;
     @InjectView(R.id.avatar) ImageView mAvatar;
     @InjectView(R.id.login) TextView mLogin;
@@ -39,8 +45,20 @@ public class SideMenuFragment extends Fragment {
         ButterKnife.reset(this);
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE_LOGIN) {
+            //todo
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
     @OnClick(R.id.account)
     public void login() {
-        Toast.makeText(getActivity(), "TODO login", Toast.LENGTH_SHORT).show();
+        ((MainActivity) getActivity()).closeDrawer();
+        if (!InstagramRestful.isAuthenticated()) {
+            Intent intent = new Intent(getActivity(), LoginActivity.class);
+            startActivityForResult(intent, REQUEST_CODE_LOGIN);
+        }
     }
 }

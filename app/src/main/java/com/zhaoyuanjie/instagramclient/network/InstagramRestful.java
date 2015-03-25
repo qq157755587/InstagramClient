@@ -14,6 +14,8 @@ public class InstagramRestful {
 
     private static final String END_POINT = "https://api.instagram.com/v1";
     private static final String CLIENT_ID = "?client_id=c247327361234e128688cfcf5a3d5533";
+    private static final String TOKEN_KEY = "?access_token=";
+    private static String sToken;
 
     private static final String MEDIA_POPULAR = "/media/popular";
 
@@ -30,7 +32,27 @@ public class InstagramRestful {
         VolleySingleton.getInstance().addToRequestQueue(request);
     }
 
+    public static String loginUrl() {
+        return "https://instagram.com/oauth/authorize/"
+                + CLIENT_ID + "&redirect_uri=http://localhost&response_type=token";
+    }
+
+    public static void setToken(String token) {
+        sToken = token;
+    }
+
+    public static boolean isAuthenticated() {
+        return sToken != null;
+    }
+
+    public void logout() {
+        sToken = null;
+    }
+
     private static String suffix() {
+        if (isAuthenticated()) {
+            return TOKEN_KEY + sToken;
+        }
         return CLIENT_ID;
     }
 }

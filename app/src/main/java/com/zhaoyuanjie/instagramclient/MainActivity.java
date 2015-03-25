@@ -2,16 +2,13 @@ package com.zhaoyuanjie.instagramclient;
 
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.View;
 
 import com.zhaoyuanjie.instagramclient.fragments.MediaListFragment;
 import com.zhaoyuanjie.instagramclient.fragments.SideMenuFragment;
 
-import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 /**
@@ -35,6 +32,12 @@ public class MainActivity extends BaseActivity {
     @Override
     protected int getContentViewLayoutId() {
         return R.layout.activity_main;
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        mToggle.syncState();
     }
 
     private void initViews() {
@@ -63,9 +66,7 @@ public class MainActivity extends BaseActivity {
         getFragmentManager().beginTransaction().replace(R.id.fragment_main, mediaListFragment).commit();
     }
 
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        mToggle.syncState();
+    public void closeDrawer() {
+        mDrawerLayout.closeDrawer(Gravity.START);
     }
 }
