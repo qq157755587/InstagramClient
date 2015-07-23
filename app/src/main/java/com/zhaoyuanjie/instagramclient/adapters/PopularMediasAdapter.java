@@ -22,7 +22,8 @@ public class PopularMediasAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        MediaListItemBinding binding = MediaListItemBinding.inflate(LayoutInflater.from(parent.getContext()));
+        MediaListItemBinding binding = MediaListItemBinding
+                .inflate(LayoutInflater.from(parent.getContext()), parent, false);
         return new MediaViewHolder(binding);
     }
 
