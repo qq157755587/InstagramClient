@@ -24,7 +24,10 @@ public class MediaListItemViewModel extends BaseObservable {
     }
 
     public String getCaption() {
-        return mMedia.caption.text;
+        if (mMedia.caption != null) {
+            return mMedia.caption.text;
+        }
+        return null;
     }
 
     public String getImageStandardResolutionUrl() {
